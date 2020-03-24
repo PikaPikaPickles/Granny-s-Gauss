@@ -1,53 +1,61 @@
 #include <iostream>
 #include <string>
 using namespace std;
-double* guss (double **a,int per,int ur){
-    int g=0;
-    double *x = new double [per];
-    for (int i=0;  i < per; i++) {
-        for (int j = i; j < ur; j++) {
-            if (a[i][j] != 0) {
-                g = j;
-            }
-        }
-        if (a[i][g] != 0) {
-            for (int j = i+1; j < ur; j++) {
-                    for (int l = i; l < per + 1; l++) {
-                        a[j][l] = a[j][l] - a[j][g] * (a[i][j] / a[i][g]);
-                    }
-            }
-        }
-    }
-}
-void Ssout (double **p, int per, int ur){
-    for (int y=0; y < ur; y++){
-        for (int x=0; x < per+1; x++){
-            cout<< p[y][x]<< ' ';
-        }
-        cout<< endl;
-    }
-}
-int main() {
+class gauss {
+private:
 
-    int per, ur;
-    cout << "количество переменных:";
-    cin >> per;
-    cout<< "количество уравнений:";
-    cin >> ur;
-    double **kof = new double *[ur];
-    for (int i = 0; i < ur; i++) {
-        kof[i] = new double[per + 1];
+    double** kof;
+    int str;
+    int stol;
+public:
+
+    gauss ( int stol,int  str ) {
+        this->str = str;
+        this->stol =stol;
+    double **kof = new double *[ str ];
+    for (int i = 0; i <  str ; i++) {
+        kof[i] = new double[stol + 1];
     }
-    for (int j=0; j< per; j++) {
-        for (int i = 0; i < ur; i++) {
+    for (int j=0; j< stol; j++) {
+        for (int i = 0; i <  str ; i++) {
             cout << "a["<< i<< ']' << '['<< j <<"] =";
             cin >> kof[i][j];
         }
     }
-    for (int i=0; i < ur; i++){
+    for (int i=0; i <  str ; i++){
         cout << 'b' <<'[' << i << "] = " ;
-        cin >> kof[i][per];
+        cin >> kof[i][stol];
     }
-    guss (kof, per, ur);
-    Ssout(kof, per, ur);
+    this->kof = kof;
+    }
+    double** umn_ch (int str_1, double mn){
+        for(int i = 0; i < stol+1; i++ ){
+            kof[str_1][i] = kof[str_1][i] * mn;
+        }
+        return kof;
+    }
+    void Ssout (){ // вывод матрицы на экран;
+        for (int y=0; y <  this->str ; y++) {
+            for (int x = 0; x < this->stol + 1; x++) {
+                cout << this->kof[y][x] << ' ';
+            }
+            cout<< endl;
+        }
+
+    }
+    double** per_str (int str_1, int str_2){
+
+    }
+};
+
+int main() {
+
+    int stol,  str ;
+    cout << "количество переменных:";
+    cin >> stol;
+    cout<< "количество уравнений:";
+    cin >>  str ;
+   gauss a(stol,str);
+   a.umn_ch(2, 3);
+   a.Ssout();
 }
