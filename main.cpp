@@ -28,13 +28,12 @@ public:
     }
     this->kof = kof;
     }
-    double** umn_ch (int str_1, double mn){
+    void umn_ch (int str_1, double mn){
         for(int i = 0; i < stol+1; i++ ){
             kof[str_1][i] = kof[str_1][i] * mn;
         }
-        return kof;
     }
-    void Ssout (){ // вывод матрицы на экран;
+    void sysout (){ // вывод матрицы на экран;
         for (int y=0; y <  this->str ; y++) {
             for (int x = 0; x < this->stol + 1; x++) {
                 cout << this->kof[y][x] << ' ';
@@ -43,9 +42,32 @@ public:
         }
 
     }
-    double** per_str (int str_1, int str_2){
+    void swap (int str_1, int str_2){
+        double k;
+        for(int i=0; i < this->stol+1; i++ ){
+            k = kof[str_1][i];
+            kof[str_1][i] = kof[str_2][i];
+            kof[str_2][i] = k;
+        }
 
     }
+    void sum (int str_1, int str_2, double n){
+        for(int i=0; i < this->stol+1; i++ ){
+            kof[str_2][i] = kof[str_1][i]*n +kof[str_2][i] ;
+        }
+    }
+    double* answer (){
+        int nenul;
+        for (int i=0; i < stol+1; i++){
+            for (int j=i; j < str; i++ ){
+                if (a[j][i]!=0){
+                    nenul = i;
+                }
+            }
+        }
+
+    }
+
 };
 
 int main() {
@@ -56,6 +78,6 @@ int main() {
     cout<< "количество уравнений:";
     cin >>  str ;
    gauss a(stol,str);
-   a.umn_ch(2, 3);
-   a.Ssout();
+   a.swap(0,1);
+   a.sysout();
 }
