@@ -4,7 +4,7 @@ using namespace std;
 class gauss {
 private:
 
-    double** kof;
+    double** kof = nullptr;
     int str;
     int stol;
 public:
@@ -44,7 +44,7 @@ public:
     }
     void swap (int str_1, int str_2){
         double k;
-        for(int i=0; i < this->stol+1; i++ ){
+        for(int i=0; i < stol+1; i++ ){
             k = kof[str_1][i];
             kof[str_1][i] = kof[str_2][i];
             kof[str_2][i] = k;
@@ -52,13 +52,14 @@ public:
 
     }
     void sum (int str_1, int str_2, double n){
-        for(int i=0; i < this->stol+1; i++ ){
+        for(int i=0; i < stol+1; i++ ){
             kof[str_2][i] = kof[str_1][i]*n +kof[str_2][i] ;
         }
     }
     double* answer (){
         int g;
-        for(int i=0; i<stol; i++){
+        double* x = new double [stol];
+        for(int i=0; i<stol+1; i++){
             for(int j=i; i < str; i++) {
                 if (kof[j][i] != 0){
                     g = j;
@@ -72,9 +73,24 @@ public:
                 this->sum(g,k,-(kof[k][i]/kof[g][i]) );
             }
 
-
         }
-    }
+       /* for (int k = stol - 1; k >= 0; k--) {
+            x[k] = kof[k][stol];
+            for (int i = 0; i < k; i++) {
+                kof[i][stol] = kof[i][stol] - kof[i][k] * x[k];
+            }
+        }
+  return x;
+*/
+
+        for (int j=0; j< stol+1; j++) {
+            for (int i = 0; i <  str; i++) {
+                if(abs( kof[i][j] ) < 0.00000001){
+                    kof[i][j] = 0;
+                };
+            }
+        }
+    };
 
 };
 
