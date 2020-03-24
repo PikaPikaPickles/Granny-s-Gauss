@@ -57,15 +57,23 @@ public:
         }
     }
     double* answer (){
-        int nenul;
-        for (int i=0; i < stol+1; i++){
-            for (int j=i; j < str; i++ ){
-                if (a[j][i]!=0){
-                    nenul = i;
+        int g;
+        for(int i=0; i<stol; i++){
+            for(int j=i; i < str; i++) {
+                if (kof[j][i] != 0){
+                    g = j;
+                    this->swap(g, i);
+                    break;
                 }
-            }
-        }
 
+
+            }
+            for(int k=i+1; k<str; k++){
+                this->sum(g,k,-(kof[k][i]/kof[g][i]) );
+            }
+
+
+        }
     }
 
 };
@@ -78,6 +86,8 @@ int main() {
     cout<< "количество уравнений:";
     cin >>  str ;
    gauss a(stol,str);
-   a.swap(0,1);
+   a.sysout();
+   cout<< endl;
+   a.answer();
    a.sysout();
 }
