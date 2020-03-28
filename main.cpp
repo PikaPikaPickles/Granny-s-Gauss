@@ -8,7 +8,14 @@ private:
     int str;
     int stol;
 public:
-
+  void nulling( double tochnost)  {for (int j=0; j< stol+1; j++) {
+            for (int i = 0; i <  str; i++) {
+                if(abs( kof[i][j] ) < tochnost){
+                    kof[i][j] = 0;
+                };
+            }
+        }
+  }
     gauss ( int stol,int  str ) {
         this->str = str;
         this->stol =stol;
@@ -56,7 +63,7 @@ public:
             kof[str_2][i] = kof[str_1][i]*n +kof[str_2][i] ;
         }
     }
-    double* answer (){
+    double** answer (){
         int g;
         double* x = new double [stol];
         for(int i=0; i<stol+1; i++){
@@ -74,25 +81,58 @@ public:
             }
 
         }
-       /* for (int k = stol - 1; k >= 0; k--) {
-            x[k] = kof[k][stol];
-            for (int i = 0; i < k; i++) {
-                kof[i][stol] = kof[i][stol] - kof[i][k] * x[k];
-            }
-        }
-  return x;
-*/
 
-        for (int j=0; j< stol+1; j++) {
-            for (int i = 0; i <  str; i++) {
-                if(abs( kof[i][j] ) < 0.00000001){
-                    kof[i][j] = 0;
-                };
+        nulling( 0.000001);
+
+        for (int i=0; i < str-1; i++){
+            for (int p=0; p<stol; p++){
+                if ((kof[i][p] == 0 && kof[i+1][p] != 0) ||(kof[i+1][p] == 0 && kof[i][p] != 0) ){
+                    break;
+                }
+                if (kof[i][p] !=0 && kof[i+1][p] != 0){
+                    this->sum( i, i+1, -(kof[i+1][p]/kof[i][p]));
+                    break;
+                }
             }
         }
+         nulling( 0.000001);
+
+        for (int i=0; i < str; i++){
+            for (int p=0; p < stol; p++){
+                if (kof[i][p] != 0){
+                    umn_ch(i,(1/kof[i][p]));
+                    break;
+                }
+            }
+        }
+        nulling( 0.000001);
+        for (int i=0; i < str; i++){
+            bool l=true;
+            for (int p=0; p < stol-1; p++){
+                if (kof[i][p] != 0){
+                    l = false;
+                    break;
+                }
+            }
+            if ( (!l) && kof [i][stol+1] == 0){
+                cout << "Несовместная. Не решу. Я что, бог?"<< endl;
+            }
+        }
+        int z = 0;
+        for (int i=0; i < stol; i++){
+            int l = 0;
+            for (int p=0; p < str; p++){
+                if (kof[p][i] != 0){
+                    l++;
+                }
+            }
+            if ( l > 1) z++;
+        }
+        cout << 'd' << z;
     };
 
 };
+
 
 int main() {
 
