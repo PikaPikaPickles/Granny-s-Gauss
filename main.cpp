@@ -179,9 +179,11 @@ public:
         }
     }
     for(int e=0; e < stol; e++){
-        x[e][stol-z] = kof[e][stol];
+        if( e < str){
+            x[e][stol-z] = kof[e][stol];
+        }
     }
-    for (int c=0; c < stol; c++){
+    /*for (int c=0; c < stol; c++){
         for (int v=0; v < z+1; v++){
             for(int o=0; o< stol; o++){
                 if (kof[o][c]!=0){
@@ -191,7 +193,7 @@ public:
             }
 
         }
-    }
+    }*/
     vb = z;
     return x;
     };
