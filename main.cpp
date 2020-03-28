@@ -1,13 +1,28 @@
 #include <iostream>
-#include <string>
+
 using namespace std;
 class gauss {
-private:
-
+public:
     double** kof = nullptr;
     int str;
     int stol;
-public:
+    int vb;
+    int l;
+   bool isBasis (int h){
+            for (int i=0; i < str; i++){
+                for (int p=0; p < stol; p++){
+                    if (kof[i][p] != 0){
+                        l = p;
+                        break;
+                    }
+                }
+                if (l == h){
+                    return true;
+                }
+            }
+            return false;
+   }
+
   void nulling( double tochnost)  {for (int j=0; j< stol+1; j++) {
             for (int i = 0; i <  str; i++) {
                 if(abs( kof[i][j] ) < tochnost){
@@ -65,7 +80,6 @@ public:
     }
     double** answer (){
         int g;
-        double* x = new double [stol];
         for(int i=0; i<stol+1; i++){
             for(int j=i; i < str; i++) {
                 if (kof[j][i] != 0){
@@ -107,28 +121,79 @@ public:
         }
         nulling( 0.000001);
         for (int i=0; i < str; i++){
-            bool l=true;
-            for (int p=0; p < stol-1; p++){
+            bool l = false;
+            for (int p=0; p < stol; p++){
                 if (kof[i][p] != 0){
-                    l = false;
+                    l = true;
                     break;
                 }
             }
-            if ( (!l) && kof [i][stol+1] == 0){
+            if ( (!l) && kof [i][stol+1] != 0){
                 cout << "Несовместная. Не решу. Я что, бог?"<< endl;
+                return nullptr;
             }
+            break;
         }
         int z = 0;
         for (int i=0; i < stol; i++){
-            int l = 0;
-            for (int p=0; p < str; p++){
-                if (kof[p][i] != 0){
-                    l++;
+            if (isBasis(i)){
+                z++;
+            }
+        }
+        int l = 0;
+
+       double **x = new double *[stol];
+    for (int i = 0; i <  stol ; i++) {
+        x[i] = new double[stol - z + 1];
+    }
+    int u = 0;
+
+    for(int i=0; i < stol; i++){
+        if (!isBasis(i)){
+            x[i][u] = 1;
+            u++;
+        }
+    }
+    for(int i=0; i<stol-1; i++){
+
+        if (isBasis(i)){
+            for (int q=0; q < str-1; q++){ //213213213
+                // uslobie stroki bazisa
+                int w=0;
+                bool ww;
+                for (int s=0; s<stol; s++){
+                    if(kof[q][s] !=0){
+                        w=s;
+                        break;
+                    }
+                }
+                if(w == i )
+                {
+                    for(int c=0; c< stol; c++){
+                        if (kof[q][c]!=0 && isBasis(c) && kof[q+1][c] != 0 ){
+                            sum (q+1,q, -(kof[q][c]/kof[q+1][c]));
+                        }
+                    }
                 }
             }
-            if ( l > 1) z++;
         }
-        cout << 'd' << z;
+    }
+    for(int e=0; e < stol; e++){
+        x[e][stol-z] = kof[e][stol];
+    }
+    for (int c=0; c < stol; c++){
+        for (int v=0; v < z+1; v++){
+            for(int o=0; o< stol; o++){
+                if (kof[o][c]!=0){
+                    x[c][v]= -kof[c][o];
+                    break;
+                }
+            }
+
+        }
+    }
+    vb = z;
+    return x;
     };
 
 };
@@ -136,7 +201,7 @@ public:
 
 int main() {
 
-    int stol,  str ;
+    int stol = 0,  str = 0 ;
     cout << "количество переменных:";
     cin >> stol;
     cout<< "количество уравнений:";
@@ -144,6 +209,12 @@ int main() {
    gauss a(stol,str);
    a.sysout();
    cout<< endl;
-   a.answer();
+   double **x = a.answer();
    a.sysout();
+   for (int i=0; i < a.stol; i++ ){
+       for (int j=0; j < a.stol - a.vb +1; j++){
+           cout << x[i][j]<< ' ';
+       }
+       cout<< endl;
+   }
 }
