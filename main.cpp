@@ -44,7 +44,7 @@ public:
         }
         for (int j = 0; j < stol; j++) {
             for (int i = 0; i < str; i++) {
-                cout << "a[" << i << ']' << '[' << j << "] ="; //Ввод коэффиуиентов
+                cout << "a[" << i << ']' << '[' << j << "] ="; //Ввод коэффициентов
                 cin >> kof[i][j];
             }
         }
@@ -66,7 +66,7 @@ public:
     }
 
     void umn_ch(int str_1, double mn) {
-        for (int i = 0; i < stol + 1; i++) {             // умножвет матрицу на числож
+        for (int i = 0; i < stol + 1; i++) {             // умножвет матрицу на число
             kof[str_1][i] = kof[str_1][i] * mn;
         }
     }
@@ -92,7 +92,7 @@ public:
     }
 
     void sum(int str_1, int str_2, double n) {
-        for (int i = 0; i < stol + 1; i++) {      // элементарное преобразование сложения умноженной на число строки
+        for (int i = 0; i < stol + 1; i++) {      // элементарное преобразование: сложения умноженной на число строки  1 к 2
             kof[str_2][i] = kof[str_1][i] * n + kof[str_2][i];
         }
     }
@@ -118,7 +118,7 @@ public:
             for (int p = 0; p < stol; p++) {
                 if ((kof[i][p] == 0 && kof[i + 1][p] != 0) || (kof[i + 1][p] == 0 && kof[i][p] != 0)) { //тут следим за
                     break;                                                                     //тем чтобы ступеньки
-                }                                                                             //щли подряд
+                }                                                                             //шли подряд
                 if (kof[i][p] != 0 && kof[i + 1][p] != 0) {
                     this->sum(i, i + 1, -(kof[i + 1][p] / kof[i][p]));
                     break;
@@ -129,7 +129,7 @@ public:
 
         for (int i = 0; i < str; i++) {
             for (int p = 0; p < stol; p++) {
-                if (kof[i][p] != 0) {                   //хочу, чтобы ступеньки наинались с единицы
+                if (kof[i][p] != 0) {                   //хочу, чтобы ступеньки начинались с единицы
                     umn_ch(i, (1 / kof[i][p]));
                     break;
                 }
@@ -205,7 +205,7 @@ public:
             if (isBasis(c)) {
                 for (int bb = 0; bb < str; bb++) {
                     if (kof[bb][c] != 0) {                              // самый сок - узнаем строку неизвестной и переносим
-                        for (int ff = 0; ff < stol; ff++) {         // коеффициенты в фундаментальную матрицу
+                        for (int ff = 0; ff < stol; ff++) {         // коэффициенты в фундаментальную матрицу
                             if (!isBasis(ff)) {
                                 x[c][uu] = -kof[bb][ff];
                                 uu++;
