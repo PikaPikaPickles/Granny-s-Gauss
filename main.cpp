@@ -119,20 +119,19 @@ public:
                 }
             }
         }
+        int yj=0;
         nulling( 0.000001);
         for (int i=0; i < str; i++){
-            bool l = false;
+            yj=0;
             for (int p=0; p < stol; p++){
                 if (kof[i][p] != 0){
-                    l = true;
-                    break;
+                    yj++;
                 }
             }
-            if ( (!l) && kof [i][stol+1] != 0){
+            if ( yj==0 && kof [i][stol] != 0){
                 cout << "Несовместная. Не решу. Я что, бог?"<< endl;
                 return nullptr;
-            }
-            break;
+            };
         }
         int z = 0;
         for (int i=0; i < stol; i++){
@@ -215,7 +214,7 @@ int main() {
    a.sysout();
    for (int i=0; i < a.stol; i++ ){
        for (int j=0; j < a.stol - a.vb +1; j++){
-           cout << x[i][j]<< ' ';
+           if (x != NULL) cout << x[i][j]<< ' ';
        }
        cout<< endl;
    }
