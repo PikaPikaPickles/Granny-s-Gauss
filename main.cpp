@@ -190,7 +190,7 @@ public:
                 if (kof[bb][c]!=0){
                     for(int ff=0; ff < stol;ff++ ){
                         if (!isBasis(ff)){
-                            x[c][uu] = kof[bb][ff];
+                            x[c][uu] = -kof[bb][ff];
                             uu++;
                         }
                     }
