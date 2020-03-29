@@ -106,13 +106,10 @@ public:
                     this->swap(g, i);
                     break;
                 }
-
-
             }
             for (int k = i + 1; k < str; k++) {
                 this->sum(g, k, -(kof[k][i] / kof[g][i])); // Кладу ступеньки
             }
-
         }
 
         nulling(0.000001);
@@ -219,9 +216,7 @@ public:
                 }
                 uu = 0;
             }
-
             vb = z;
-
         }
         kl = x;
         return x;    // не забудь удалить память)
