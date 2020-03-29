@@ -182,17 +182,35 @@ public:
             x[e][stol-z] = kof[e][stol];
         }
     }
-    /*for (int c=0; c < stol; c++){
-        for (int v=0; v < z+1; v++){
+
+    int uu=0;
+    for (int c=0; c < stol; c++){
+        if(isBasis(c)){
+            for (int bb=0; bb < str; bb++){
+                if (kof[bb][c]!=0){
+                    for(int ff=0; ff < stol;ff++ ){
+                        if (!isBasis(ff)){
+                            x[c][uu] = kof[bb][ff];
+                            uu++;
+                        }
+                    }
+                    break;
+                }
+            }
+            uu =0;
+        }
+        /*for (int v=0; v < z; v++){
             for(int o=0; o< stol; o++){
-                if (kof[o][c]!=0){
+                if (kof[o][c]!=0 && (!isBasis(c))){
                     x[c][v]= -kof[c][o];
                     break;
                 }
             }
 
-        }
-    }*/
+        }*/
+    }
+
+
     vb = z;
     return x;
     };
